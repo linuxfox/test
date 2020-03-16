@@ -1,4 +1,4 @@
-package kr.co.esjee.cloud.archive;
+package kr.co.esjee.cloud.job.diva;
 
 import java.util.List;
 import java.util.Map;

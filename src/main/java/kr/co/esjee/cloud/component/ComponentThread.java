@@ -11,8 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import kr.co.esjee.cloud.archive.ArchiveManager;
 import kr.co.esjee.cloud.constant.BaseConstant;
+import kr.co.esjee.cloud.job.diva.ArchiveManager;
 import kr.co.esjee.cloud.manager.ComponentManager;
 
 /**
@@ -23,7 +23,7 @@ public class ComponentThread implements Runnable {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	// 대기 시간
-	private final int SLEEP_TIME = 10 * 1000;
+	private final int SLEEP_TIME = 1 * 1000;
 	private ObjectMapper mapper = new ObjectMapper();
 
 	private ComponentManager componentManager;

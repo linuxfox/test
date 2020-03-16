@@ -89,13 +89,13 @@ public class ComponentManager extends ComponentInfo {
 				jobTemplate.setExchange(jobExchange);
 				jobTemplate.setQueue(queueName.toString());
 				jobTemplate.setRoutingKey(queueName.toString());
-				
-				logger.debug("===== ComponentManager getJob Queue : " + queueName);
 
 				jobMessage = jobTemplate.receive(queueName.toString());
 
-				if (jobMessage != null)
+				if (jobMessage != null) {
+					logger.debug("===== ComponentManager getJob Queue : " + queueName);
 					break;
+				}
 			}
 
 			// 2. 폴링한 작업이 있을 경우 반환
@@ -283,7 +283,9 @@ public class ComponentManager extends ComponentInfo {
 	}
 
 	public void sendConnectInfo() {
+		String connectInfoJson = this.getComponentInfo().toJSONString(); 
+		logger.debug("===== Send Connect Info : " + connectInfoJson);
 		jobTemplate.setQueue(componentConnect);
-		jobTemplate.convertAndSend(componentConnect, this.getComponentInfo().toJSONString());
+		jobTemplate.convertAndSend(componentConnect, connectInfoJson);
 	}
 }
