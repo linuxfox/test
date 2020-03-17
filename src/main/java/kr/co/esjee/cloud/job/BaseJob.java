@@ -17,6 +17,9 @@ public abstract class BaseJob {
 	protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	protected JSONObject request = null;
+	public JSONObject getRequest() {
+		return request;
+	}
 	
 	protected BaseJob(String jobMsg) {
 		super();

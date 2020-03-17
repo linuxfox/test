@@ -3,6 +3,7 @@ package kr.co.esjee.cloud.component;
 import java.util.Map;
 
 import org.codehaus.jackson.map.ObjectMapper;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,6 +85,18 @@ public class Component implements Runnable {
 					break;
 				case BaseConstant.COMPONENT_TYPE_1040:
 					HcpJob hcpJob = new HcpJob(jobParam, componentManager.getHcpServerInfo());
+					hcpJob.setDownloadCallback(percentTransferred -> {
+						// 진행률 callback
+						try {
+							JSONObject data = hcpJob.getRequest();
+							data.put("jobProgress", percentTransferred);
+							ObjectMapper mapper = new ObjectMapper();
+							String msg = mapper.writeValueAsString(data);
+							componentManager.hcpJobStatus(msg);
+						} catch (Exception e) {
+						}
+						return percentTransferred;
+					});
 					message = hcpJob.run();
 					break;
 				case BaseConstant.COMPONENT_TYPE_1050:
