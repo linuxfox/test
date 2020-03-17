@@ -27,7 +27,16 @@ public interface ErrorConstant {
 		, F0530("(실패) 로그인 정보 오류 (FTP 로그인 정보 오류)", "0530")
 		, F0556("(실패) 롤백 오류", "0556")
 		, F0701("(실패) MQ 커넥션 오류", "0701")
-		, F0702("(실패) MQ 커넥션 시간 초과", "0702");
+		, F0702("(실패) MQ 커넥션 시간 초과", "0702")
+		
+		// HCP 연동 오류 코드 1000~
+		, HCP_UndefinedRequestType("HCP 작업 유형 오류", "1000")
+		, HCP_FailedConnect("HCP 서버 커넥션 실패", "1001")
+		, HCP_FailedUpload("HCP 파일 업로드 실패", "1002")
+		, HCP_FailedDownload("HCP 파일 다운로드 실패", "1003")
+		, HCP_FailedDelete("HCP 파일 삭제 실패", "1004")
+		
+		, F9999("(실패) Exception ", "9999");
 
 		private final String message;
 		private final String code;

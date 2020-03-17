@@ -20,6 +20,7 @@ import kr.co.esjee.cloud.constant.BaseConstant.JOB_RESULT;
 import kr.co.esjee.cloud.constant.BaseConstant.JOB_STATE;
 import kr.co.esjee.cloud.constant.BaseConstant.PROCESS_EXE;
 import kr.co.esjee.cloud.info.ComponentInfo;
+import kr.co.esjee.cloud.job.hcp.HcpServerInfo;
 
 /**
  * @Description 컴포넌트 메니저
@@ -55,7 +56,22 @@ public class ComponentManager extends ComponentInfo {
 
 	@Value("#{common['connect.queue']}")
 	private String componentConnect;
-
+	
+	@Value("#{common['hcp.job.status.queue']}")
+	private String hcpJobStatusQueue;
+	
+	@Value("#{common['hcp.host']}")
+	private String hcpHost;
+	
+	@Value("#{common['hcp.user']}")
+	private String hcpUser;
+	
+	@Value("#{common['hcp.password']}")
+	private String hcpPassword;
+	
+	@Value("#{common['hcp.storage.root']}")
+	private String hcpStorageRoot;
+	
 	@PostConstruct
 	public void init() {
 		new Thread(new ComponentThread(this)).start();
@@ -287,5 +303,18 @@ public class ComponentManager extends ComponentInfo {
 		logger.debug("===== Send Connect Info : " + connectInfoJson);
 		jobTemplate.setQueue(componentConnect);
 		jobTemplate.convertAndSend(componentConnect, connectInfoJson);
+	}
+
+	public HcpServerInfo getHcpServerInfo() {
+		HcpServerInfo serverInfo = new HcpServerInfo();
+		serverInfo.setHost(hcpHost);
+		serverInfo.setUser(hcpUser);
+		serverInfo.setPassword(hcpPassword);
+		serverInfo.setRootPath(hcpStorageRoot);
+		return serverInfo;
+	}
+
+	public void hcpJobStatus(String message) {
+		this.convertAndSend(this.hcpJobStatusQueue, message, false);
 	}
 }

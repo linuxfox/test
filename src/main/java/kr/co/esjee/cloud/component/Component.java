@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import kr.co.esjee.audioqc.SJAudioQC;
 import kr.co.esjee.cloud.constant.BaseConstant;
 import kr.co.esjee.cloud.constant.ErrorConstant.ERROR_CODE;
+import kr.co.esjee.cloud.job.hcp.HcpJob;
 import kr.co.esjee.cloud.manager.ComponentManager;
 import kr.co.esjee.deletedirectory.DeleteDirectoryModule;
 import kr.co.esjee.detectmarker.DetectMarker;
@@ -81,8 +82,12 @@ public class Component implements Runnable {
 					SJFileTransferManager ftm = new SJFileTransferManager(jobParam);
 					message = ftm.run();
 					break;
-				//삭제 모듈 추가
+				case BaseConstant.COMPONENT_TYPE_1040:
+					HcpJob hcpJob = new HcpJob(jobParam, componentManager.getHcpServerInfo());
+					message = hcpJob.run();
+					break;
 				case BaseConstant.COMPONENT_TYPE_1050:
+					//삭제 모듈 추가
 					DeleteDirectoryModule ddm = new DeleteDirectoryModule(jobParam);
 					ddm.RunDelete();
 					
@@ -116,6 +121,9 @@ public class Component implements Runnable {
 					break;
 				case BaseConstant.COMPONENT_TYPE_1015:
 					componentManager.markerResult(message);
+					break;
+				case BaseConstant.COMPONENT_TYPE_1040:
+					componentManager.hcpJobStatus(message);
 					break;
 			}
 

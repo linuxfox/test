@@ -99,12 +99,14 @@ public interface BaseConstant {
 	public static String COMPONENT_TYPE_1016 = "1016";
 	/** 전송 */
 	public static String COMPONENT_TYPE_1007 = "1007";
-	/** 아카이브 */
+	/** DIVA 연동*/
 	public static String COMPONENT_TYPE_1008 = "1008";
 	/** 전송-부조 */
 	public static String COMPONENT_TYPE_1031 = "1031";
 	/** 전송-고속 */
 	public static String COMPONENT_TYPE_1032 = "1032";
+	/** HCP 연동 */
+	public static String COMPONENT_TYPE_1040 = "1040";
 	/** 삭제 모듈 */
 	public static String COMPONENT_TYPE_1050 = "1050";
 }
