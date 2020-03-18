@@ -97,8 +97,9 @@ public class HcpJob extends BaseJob {
 	}
 
 	private String getHcpPath() throws BaseJobException {
-		String filePath = getFilePath();
-		return filePath.replaceFirst(serverInfo.getRootPath(), "");
+		String hcpPath = getFilePath();
+		hcpPath = hcpPath.replaceFirst(serverInfo.getRootPath(), "");
+		return hcpPath.substring(0, hcpPath.lastIndexOf("/"));
 	}
 	
 	private String getHcpFileName() throws BaseJobException {
