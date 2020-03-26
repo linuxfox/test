@@ -109,4 +109,6 @@ public interface BaseConstant {
 	public static String COMPONENT_TYPE_1040 = "1040";
 	/** 삭제 모듈 */
 	public static String COMPONENT_TYPE_1050 = "1050";
+	/** 소셜 연동 */
+	public static String COMPONENT_TYPE_1060 = "1060";
 }
