@@ -13,10 +13,10 @@ public class HcpJob extends BaseJob {
 
 	private HcpServerInfo serverInfo = null;
 	
-	private Function<Double, Double> downloadCallback = null;
+	private Function<Double, Double> progressCallback = null;
 
-	public void setDownloadCallback(Function<Double, Double> downloadCallback) {
-		this.downloadCallback = downloadCallback;
+	public void setProgressCallback(Function<Double, Double> progressCallback) {
+		this.progressCallback = progressCallback;
 	}
 
 	public HcpJob(String jobMsg, HcpServerInfo serverInfo) {
@@ -55,8 +55,11 @@ public class HcpJob extends BaseJob {
 		}
 		try {
 			logger.info("HCP Upload file : " + filePath);
-			
-			hcp.S3Upload(getHcpPath(), filePath);
+			if(progressCallback != null) {
+				hcp.S3UploadWithProgress(getHcpPath(), filePath, progressCallback);
+			} else {
+				hcp.S3Upload(getHcpPath(), filePath);
+			}
 		} catch (HcpException e) {
 			throw new BaseJobException(e, ERROR_CODE.HCP_FailedUpload);
 		}
@@ -67,8 +70,8 @@ public class HcpJob extends BaseJob {
 		String filePath = getFilePath();
 		try {
 			logger.info("HCP Download file : " + filePath);
-			if(downloadCallback != null) {
-				hcp.S3DownloadWithProgress(getHcpPath(), getHcpFileName(), filePath, downloadCallback);
+			if(progressCallback != null) {
+				hcp.S3DownloadWithProgress(getHcpPath(), getHcpFileName(), filePath, progressCallback);
 			} else {
 				hcp.S3Download(getHcpPath(), getHcpFileName(), filePath);
 			}
