@@ -86,7 +86,7 @@ public class Component implements Runnable {
 					break;
 				case BaseConstant.COMPONENT_TYPE_1040:
 					HcpJob hcpJob = new HcpJob(jobParam, componentManager.getHcpServerInfo());
-					hcpJob.setDownloadCallback(percentTransferred -> {
+					hcpJob.setProgressCallback(percentTransferred -> {
 						// 진행률 callback
 						try {
 							JSONObject data = hcpJob.getRequest();
