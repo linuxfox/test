@@ -11,6 +11,7 @@ import kr.co.esjee.audioqc.SJAudioQC;
 import kr.co.esjee.cloud.constant.BaseConstant;
 import kr.co.esjee.cloud.constant.ErrorConstant.ERROR_CODE;
 import kr.co.esjee.cloud.job.hcp.HcpJob;
+import kr.co.esjee.cloud.job.quantum.QuantumArchiveManager;
 import kr.co.esjee.cloud.job.social.SocialTransferJob;
 import kr.co.esjee.cloud.manager.ComponentManager;
 import kr.co.esjee.deletedirectory.DeleteDirectoryModule;
@@ -112,6 +113,11 @@ public class Component implements Runnable {
 					//소셜연동
 					SocialTransferJob soicalTransfer = new SocialTransferJob(jobParam);
 					message = soicalTransfer.run();
+					break;
+				case BaseConstant.COMPONENT_TYPE_1090:
+					//아카이브 연동
+					QuantumArchiveManager archiveManager = new QuantumArchiveManager();
+					archiveManager.run(jobParam, componentManager);
 					break;
 			}
 

@@ -78,6 +78,13 @@
 			<version>1.0.2.RELEASE</version>
 			<scope>import</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>com.sun.jersey</groupId>
+		    <artifactId>jersey-client</artifactId>
+		    <version>1.19.4</version>
+		</dependency>
+				
 	</dependencies>
 
 	<profiles>

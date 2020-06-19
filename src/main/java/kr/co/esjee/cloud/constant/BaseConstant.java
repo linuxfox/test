@@ -111,4 +111,6 @@ public interface BaseConstant {
 	public static String COMPONENT_TYPE_1050 = "1050";
 	/** 소셜 연동 */
 	public static String COMPONENT_TYPE_1060 = "1060";
+	/** Quantum 연동 */
+	public static String COMPONENT_TYPE_1090 = "1008";
 }

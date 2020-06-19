@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.esjee.cloud.constant.BaseConstant;
 import kr.co.esjee.cloud.job.diva.ArchiveManager;
+import kr.co.esjee.cloud.job.quantum.QuantumArchiveManager;
 import kr.co.esjee.cloud.manager.ComponentManager;
 
 /**
@@ -46,12 +47,13 @@ public class ComponentThread implements Runnable {
 			try {
 				jobParam = componentManager.getJob();
 				
-				if(componentManager.getComponentType().equals(BaseConstant.COMPONENT_TYPE_1008))
-				{
+				if(componentManager.getComponentType().equals(BaseConstant.COMPONENT_TYPE_1090))
+				{					
 					if (jobParam != null) {
-						ArchiveManager.Instance().run(jobParam, componentManager);
+						QuantumArchiveManager.Instance().run(jobParam, componentManager);
 					}
 					Thread.sleep(SLEEP_TIME);
+					
 				} else {
 					if (jobParam != null) {
 						component = new Component(componentManager, jobParam, (Map<String, Object>) mapper.readValue(jobParam, Map.class));
