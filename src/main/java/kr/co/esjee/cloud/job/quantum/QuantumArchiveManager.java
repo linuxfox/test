@@ -176,7 +176,7 @@ public class QuantumArchiveManager implements ArchiveConstant {
 	 */
 	private String restore(Map<String, Object> message) throws Exception {
 		String filesPathRoot = String.valueOf(message.get("filesPathRoot"));
-		String filesName = String.valueOf(message.get("filesPathRoot"));
+		String filesName = String.valueOf(message.get("filesName"));
 		
 		String objectName = String.valueOf(message.get("objectName"));
 		String objectCategory = String.valueOf(message.get("objectCategory"));
