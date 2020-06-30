@@ -51,6 +51,14 @@ public class QuantumArchiveManager implements ArchiveConstant {
 		return instance;
 	}
 
+	public QuantumArchiveManager() {
+		if(QuantumArchiveManager.instance == null) {
+			QuantumArchiveManager.instance = this;
+		}
+		else {
+			logger.error("INJECTION ERROR");
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public void run(String jobParam, ComponentManager componentManager) {
@@ -95,7 +103,7 @@ public class QuantumArchiveManager implements ArchiveConstant {
 				Map<String, Object> responseMap = responseMapper.readValue(response, Map.class);
 				List<Map<String, Object>> responseStatuses = (List<Map<String, Object>>) responseMap.get("statuses");
 				
-				if(checkComplate(responseStatuses)) { // 결과상태 성공여부 check
+				if(checkComplate(responseStatuses)) { // 결과상태 성공 check
 					logger.debug("----->>  Quantum  response complate !!! <<-------");
 					convertAndSend(archiveSeq, requestType, requestData, componentManager, stateCode, requestId, errorCode, isRunning);
 				}
@@ -187,7 +195,7 @@ public class QuantumArchiveManager implements ArchiveConstant {
 		
 		String filePath = "";
 		
-		filePath = filesPathRoot + filesName; // 파일명 연동필요
+		filePath = filesPathRoot + filesName; // 파일명 연동
 		
 		String response = quantumManager.getFsRetrieve(this.useHttps, this.userName, this.password, this.hostName, this.port, this.FROMAT, filePath);
 		
@@ -207,7 +215,7 @@ public class QuantumArchiveManager implements ArchiveConstant {
 			jobResult.put("requestId", requestId);
 			jobResult.put("errorCode", errorCode);
 
-			//상태 코드 값이 성공일 경우 용량 데이터 
+			//상태코드 값이 성공일 경우 용량 데이터
 			if(ArchiveConstant.STATUS.Completed.getCode().equals(stateCode)) {
 				/*
 				jobResult.put("sizeBytes", 
@@ -243,7 +251,7 @@ public class QuantumArchiveManager implements ArchiveConstant {
 			String statusCode = (String) responseStatus.get("statusCode");
 			String commandStatus = (String) responseStatus.get("commandStatus");
 			
-			if(statusCode.equals(COMPLATE_CODE) && commandStatus.equals(COMPLATE_STATUS)) { // 결과값이 성공인 case
+			if(statusCode.equals(COMPLATE_CODE)) { // 결과값 확인
 				check = true;
 			}
 		}
